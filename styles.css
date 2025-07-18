@@ -1,0 +1,40 @@
+body {
+    background-image: url("background.png");
+    background-size: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+    font-size: x-large;
+}
+
+#title {
+    align-items: center;
+    text-align: center;
+    font-size: larger;
+}
+
+#grid {
+    border-radius: 20px;
+    border: 1px solid #000000;
+    display: grid;
+    grid-template-columns: repeat(100, 10px);
+    grid-template-rows: repeat(55,10px);
+}
+
+#grid div {
+    width: 10px;
+    height: 10px;
+    border: 0px solid #5c2323;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.red {
+    background-color: red;
+}
