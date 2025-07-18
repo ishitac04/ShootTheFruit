@@ -20,13 +20,13 @@ body {
     border-radius: 20px;
     border: 1px solid #000000;
     display: grid;
-    grid-template-columns: repeat(100, 10px);
-    grid-template-rows: repeat(55,10px);
+    grid-template-columns: repeat(200, 5px);
+    grid-template-rows: repeat(110,5px);
 }
 
 #grid div {
-    width: 10px;
-    height: 10px;
+    width: 5px;
+    height: 5px;
     border: 0px solid #5c2323;
     display: flex;
     align-items: center;
@@ -35,6 +35,30 @@ body {
     font-size: 20px;
 }
 
+.lred {
+    background-color: rgb(226, 116, 116);
+}
+
+.lgreen {
+    background-color: rgb(54, 204, 54);
+}
+
+.lbrown {
+    background-color: #92623a;
+}
+
+.black {
+    background-color: #000000;
+}
+
 .red {
-    background-color: red;
+    background-color: rgb(226, 3, 3);
+}
+
+.green {
+    background-color: rgb(15, 124, 15);
+}
+
+.brown {
+    background-color: #49311d;
 }
