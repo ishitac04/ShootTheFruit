@@ -1,3 +1,5 @@
+count=0
+
 function generateGrid() {
     let i=0
     const board = document.getElementById('grid')
@@ -105,5 +107,48 @@ function generateApple(i) {
     boxes[i+1811].className = 'black';
 }
 
+function clearApple() {
+    boxes.forEach(box => {
+        box.textContent = " ";
+        box.className = '';
+        });
+}
+
+function ApplePosition() {
+    let position=Math.floor(Math.random()*22000);
+    return position;
+}
+
+let goingUp = true;
+let minPosition = 200
+let maxPosition = 22000 - 2600
+
+function moveApple() {
+    clearApple();
+    if (goingUp) {
+        position -= 203;
+        if (position <= minPosition) {
+            goingUp = false;
+        }
+        console.log("going up");
+    } else {
+        position += 197;
+        if (position >= maxPosition) {
+            goingUp = true;
+        }
+        console.log("going down");
+    }
+
+
+    generateApple(position);
+}
+
+
+
+
+
 generateGrid();
-generateApple(2750);
+let position = ApplePosition();
+generateApple(position);
+setInterval(moveApple,0.1);
+
