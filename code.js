@@ -1,4 +1,8 @@
 count=0
+let goingUp = true;
+let minPosition = 200
+let maxPosition = 22000 - 2600
+centre = 10510
 
 function generateGrid() {
     let i=0
@@ -115,13 +119,9 @@ function clearApple() {
 }
 
 function ApplePosition() {
-    let position=Math.floor(Math.random()*22000);
+    let position=Math.floor(Math.random()*(22000-2600));
     return position;
 }
-
-let goingUp = true;
-let minPosition = 200
-let maxPosition = 22000 - 2600
 
 function moveApple() {
     clearApple();
@@ -143,12 +143,56 @@ function moveApple() {
     generateApple(position);
 }
 
+function generateTarget(c) {
+    const targetBoxes = [0, 200, 200, 1, 1, 2000, 1800, 1600, 1400, 1200, 6, 7, 8, 9, 10, 208, 408, 608, 607, 807, 806, 1006, 1005, 1205, 1204, 1404, 1403, 1603, 1602, 1601, 1599, 1598, 1597, 1397, 1396, 1196, 1195, 995, 994, 794, 793, 593, 592, 392, 192]
+    for (let n = 0; n < targetBoxes.length; n++) {
+        boxes[c-targetBoxes[n]].className = "target";
+        boxes[c+targetBoxes[n]].className = "target";
+      }
+}
 
-
-
+function clearTarget() {
+    boxes.forEach(box => {
+        if (box.className === 'target') {
+            box.className = '';
+        }
+    });
+}
 
 generateGrid();
 let position = ApplePosition();
 generateApple(position);
-setInterval(moveApple,0.1);
 
+
+document.addEventListener('keydown', (event) => {
+    clearTarget();
+    switch (event.key) {
+        case 'ArrowUp':
+            currentDirection = 'up';
+            centre = centre - 600;
+            generateApple(position);
+            break;
+        case 'ArrowDown':
+            currentDirection = 'down';
+            centre = centre + 600;
+            generateApple(position);
+            break;
+        case 'ArrowLeft':
+            currentDirection = 'left';
+            centre = centre - 3;
+            generateApple(position);
+            break;
+        case 'ArrowRight':
+            currentDirection = 'right';
+            centre = centre + 3;
+            generateApple(position);
+            break;
+        case 'Enter':
+            currentDirection = 'enter';
+            console.log("enter pressed");
+            break;
+    }
+    generateTarget(centre);
+});
+
+//setInterval(moveApple,50);

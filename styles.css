@@ -27,7 +27,7 @@ body {
 #grid div {
     width: 5px;
     height: 5px;
-    border: 0px solid #5c2323;
+    border: 1px solid #5c2323;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -38,27 +38,24 @@ body {
 .lred {
     background-color: rgb(226, 116, 116);
 }
-
 .lgreen {
     background-color: rgb(54, 204, 54);
 }
-
 .lbrown {
     background-color: #92623a;
 }
-
 .black {
     background-color: #000000;
 }
-
 .red {
     background-color: rgb(226, 3, 3);
 }
-
 .green {
     background-color: rgb(15, 124, 15);
 }
-
 .brown {
     background-color: #49311d;
+}
+.target {
+    background-color: #f58c2a;
 }
