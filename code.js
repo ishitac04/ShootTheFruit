@@ -1,12 +1,22 @@
+const correct = document.getElementById("correct");
+const gunshot = document.getElementById("gunshot")
+const backgroundmusic = document.getElementById("backgroundmusic");
+
 count=0
 let goingUp = true;
-let minPosition = 200
-let maxPosition = 22000 - 2600
-centre = 10510
+let minPosition = 200;
+let maxPosition = 22000 - 2600;
+let col=200
+let centre = 10510;
+let score = 0;
+let stop=0
+//let appleInterval = setInterval(moveApple, 50);
+currentApple=0
+lastDestroyed=0
 
 function generateGrid() {
-    let i=0
-    const board = document.getElementById('grid')
+    let i=0;
+    const board = document.getElementById('grid');
     while (i<22000) {
     i=i+1
     const square = document.createElement('div')
@@ -16,6 +26,7 @@ function generateGrid() {
 }
 
 function generateApple(i) {
+    currentApple=currentApple+1
     boxes[i+5].className = 'black';
     boxes[i+205].className = 'lbrown';
     boxes[i+204].className = 'black';
@@ -113,8 +124,10 @@ function generateApple(i) {
 
 function clearApple() {
     boxes.forEach(box => {
+        if (box.className=="red" || box.className=="black" || box.className=="green" || box.className=="lred" || box.className=="lbrown" || box.className=="brown" || box.className=="lgreen") {
         box.textContent = " ";
         box.className = '';
+        }
         });
 }
 
@@ -159,40 +172,77 @@ function clearTarget() {
     });
 }
 
+function shootBullet() {
+    let startx = 17045 % col;
+    let starty = Math.floor(17045 / col);
+    let endx = centre % col;
+    let endy = Math.floor(centre / col)
+    console.log(startx,starty, endx, endy)
+    boxes[17045].className = "brown";
+}
+
 generateGrid();
 let position = ApplePosition();
 generateApple(position);
+shootBullet();
 
 
-document.addEventListener('keydown', (event) => {
+document.addEventListener('keydown', (event) => { 
     clearTarget();
     switch (event.key) {
         case 'ArrowUp':
             currentDirection = 'up';
             centre = centre - 600;
+            if (lastDestroyed==currentApple) {
+                console.log("not creating it")
+            } else {
             generateApple(position);
+            }
             break;
         case 'ArrowDown':
             currentDirection = 'down';
             centre = centre + 600;
+            if (lastDestroyed==currentApple) {
+                console.log("not creating it")
+            } else {
             generateApple(position);
+            }
             break;
         case 'ArrowLeft':
             currentDirection = 'left';
             centre = centre - 3;
+            if (lastDestroyed==currentApple) {
+                console.log("not creating it")
+            } else {
             generateApple(position);
+            }
             break;
         case 'ArrowRight':
             currentDirection = 'right';
             centre = centre + 3;
+            if (lastDestroyed==currentApple) {
+                console.log("not creating it")
+            } else {
             generateApple(position);
+            }
             break;
         case 'Enter':
             currentDirection = 'enter';
             console.log("enter pressed");
+            gunshot.play()
+
+            if (boxes[centre].className == "red" || boxes[centre].className == "lred") {
+                clearApple()
+                score = score + 1
+                console.log(score)
+                clearInterval(appleInterval)
+                centre=0
+                lastDestroyed=currentApple
+
+                break
+            }
+
             break;
     }
     generateTarget(centre);
-});
-
-//setInterval(moveApple,50);
+}); 
