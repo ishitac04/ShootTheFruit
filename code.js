@@ -10,7 +10,7 @@ let col=200
 let centre = 10510;
 let score = 0;
 let stop=0
-//let appleInterval = setInterval(moveApple, 50);
+let appleInterval = setInterval(moveApple, 50);
 currentApple=0
 lastDestroyed=0
 

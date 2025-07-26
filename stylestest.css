@@ -1,0 +1,61 @@
+body {
+    background-image: url("background.png");
+    background-size: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+    font-size: x-large;
+}
+
+#title {
+    align-items: center;
+    text-align: center;
+    font-size: larger;
+}
+
+#grid {
+    border-radius: 20px;
+    border: 1px solid #000000;
+    display: grid;
+    grid-template-columns: repeat(20, 30px);
+    grid-template-rows: repeat(20,30px);
+}
+
+#grid div {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #5c2323;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.lred {
+    background-color: rgb(226, 116, 116);
+}
+.lgreen {
+    background-color: rgb(54, 204, 54);
+}
+.lbrown {
+    background-color: #92623a;
+}
+.black {
+    background-color: #000000;
+}
+.red {
+    background-color: rgb(226, 3, 3);
+}
+.green {
+    background-color: rgb(15, 124, 15);
+}
+.brown {
+    background-color: #49311d;
+}
+.target {
+    background-color: #f58c2a;
+}
