@@ -18,7 +18,7 @@ body {
 
 #grid {
     border-radius: 20px;
-    border: 0px solid #000000;
+    border: 2px solid #000000;
     display: grid;
     grid-template-columns: repeat(200, 5px);
     grid-template-rows: repeat(110,5px);
@@ -34,6 +34,14 @@ body {
     font-weight: bold;
     font-size: 20px;
 }
+
+#stats {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    font-size: x-large;
+  }
+  
 
 .lred {
     background-color: rgb(226, 116, 116);
@@ -57,5 +65,8 @@ body {
     background-color: #49311d;
 }
 .target {
+    background-color: #f58c2a;
+}
+.fakeTarget {
     background-color: #f58c2a;
 }

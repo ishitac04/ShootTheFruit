@@ -2,17 +2,21 @@ const correct = document.getElementById("correct");
 const gunshot = document.getElementById("gunshot")
 const backgroundmusic = document.getElementById("backgroundmusic");
 
-count=0
+let count=0
 let goingUp = true;
 let minPosition = 200;
 let maxPosition = 22000 - 2600;
-let col=200
+let col=200;
 let centre = 10510;
 let score = 0;
-let stop=0
+let stop=0;
 let appleInterval = setInterval(moveApple, 50);
-currentApple=0
-lastDestroyed=0
+let currentApple=0;
+let lastDestroyed=0;
+let position = 0;
+let bullets = 10;
+let bulletsLeft = document.getElementById('bullets');
+let scoreText = document.getElementById('score')
 
 function generateGrid() {
     let i=0;
@@ -23,10 +27,10 @@ function generateGrid() {
     board.appendChild(square)
     }
     boxes = document.querySelectorAll('#grid div')
+    
 }
 
 function generateApple(i) {
-    currentApple=currentApple+1
     boxes[i+5].className = 'black';
     boxes[i+205].className = 'lbrown';
     boxes[i+204].className = 'black';
@@ -132,6 +136,7 @@ function clearApple() {
 }
 
 function ApplePosition() {
+    currentApple = currentApple + 1;
     let position=Math.floor(Math.random()*(22000-2600));
     return position;
 }
@@ -181,10 +186,11 @@ function shootBullet() {
     boxes[17045].className = "brown";
 }
 
-generateGrid();
-let position = ApplePosition();
-generateApple(position);
-shootBullet();
+function setGame() {
+    position = ApplePosition();
+    generateApple(position);
+    appleInterval = setInterval(moveApple, 50);
+    shootBullet();
 
 
 document.addEventListener('keydown', (event) => { 
@@ -229,20 +235,32 @@ document.addEventListener('keydown', (event) => {
         case 'Enter':
             currentDirection = 'enter';
             console.log("enter pressed");
-            gunshot.play()
+            gunshot.play();
+            bullets=bullets-1;
+            bulletsLeft.textContent = "Bullets left: " + bullets;
+            if (bullets==0) {
+                alert("Out of bullets! Your final score is "+ score)
+                location.reload();
+            }
 
-            if (boxes[centre].className == "red" || boxes[centre].className == "lred") {
-                clearApple()
-                score = score + 1
-                console.log(score)
-                clearInterval(appleInterval)
-                centre=0
-                lastDestroyed=currentApple
-
-                break
+            if (boxes[centre].className == "red" || boxes[centre].className == "lred" || boxes[centre].className == "lgreen" || boxes[centre].className == "green" || boxes[centre].className == "black" || boxes[centre].className == "brown" || boxes[centre].className == "lbrown") {
+                clearApple();
+                score = score + 1;
+                scoreText.textContent = "Score: " + score;
+                console.log(score);
+                clearInterval(appleInterval);
+                centre=2500;
+                lastDestroyed=currentApple;
+                setGame();
+                console.log(currentApple, currentApple)
+                break;
             }
 
             break;
     }
     generateTarget(centre);
 }); 
+}
+
+generateGrid();
+setGame()
