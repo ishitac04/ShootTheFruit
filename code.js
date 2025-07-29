@@ -18,6 +18,7 @@ let bullets = 10;
 let bulletsLeft = document.getElementById('bullets');
 let scoreText = document.getElementById('score')
 let gameStarted = false;
+const appleBoxes = [];
 
 function generateGrid() {
     let i=0;
@@ -125,14 +126,31 @@ function generateApple(i) {
     boxes[i+1411].classList.add("black");
     boxes[i+1611].classList.add("black");
     boxes[i+1811].classList.add("black");
+
+    createArray();
+}
+
+function createArray() {
+    appleBoxes.length = 0;
+    for (let a=0; a<22000; a++) {
+        if (boxes[a].classList.contains("red") || boxes[a].classList.contains("lred") || boxes[a].classList.contains("brown") || boxes[a].classList.contains("lbrown") || boxes[a].classList.contains("green") || boxes[a].classList.contains("lgreen") || boxes[a].classList.contains("black")) {
+            appleBoxes.push(a);
+        }
+    }
+    console.log(appleBoxes)
 }
 
 function clearApple() {
-    boxes.forEach(box => {
-        ["red","black","green","lred","lbrown","brown","lgreen"].forEach(c => {
-          box.classList.remove(c);
+    const appleColors = ["red","lred","brown","lbrown","green","lgreen","black"];
+    for (let b=0; b < appleBoxes.length; b++) {
+        console.log("in loop")
+        let applePos=appleBoxes[b];
+        console.log(b, applePos)
+        appleColors.forEach(color => {
+            boxes[applePos].classList.remove(color); 
         });
-      });      
+        console.log("removed colours")
+    }
 }
 
 function ApplePosition() {
@@ -144,13 +162,13 @@ function ApplePosition() {
 function moveApple() {
     clearApple();
     if (goingUp) {
-        position -= 203;
+        position -= 204;
         if (position <= minPosition) {
             goingUp = false;
         }
         console.log("going up");
     } else {
-        position += 197;
+        position += 196;
         if (position >= maxPosition) {
             goingUp = true;
         }
@@ -190,16 +208,16 @@ function keyPress(event) {
     clearTarget();
     switch (event.key) {
         case 'ArrowUp':
-            centre = centre - 600;
+            centre = centre - 800;
             break;
         case 'ArrowDown':
-            centre = centre + 600;
+            centre = centre + 800;
             break;
         case 'ArrowLeft':
-            centre = centre - 3;
+            centre = centre - 4;
             break;
         case 'ArrowRight':
-            centre = centre + 3;
+            centre = centre + 4;
             break;
         case 'Enter':
             console.log("enter pressed");
@@ -211,16 +229,27 @@ function keyPress(event) {
                 alert("Out of bullets! Your final score is " + score);
                 location.reload();
             }
-
-            if ((boxes[centre].classList.contains("red") || boxes[centre].classList.contains("lred"))) {
+            for (d=0; d<13; d++) {
+                const positions = [398, 399, 400, 401, 402, 198, 199, 200, 201, 202, 1, 2, 0];
+                if ((boxes[centre+positions[d]].classList.contains("red") || boxes[centre+positions[d]].classList.contains("lred") || boxes[centre+positions[d]].classList.contains("black") || boxes[centre+positions[d]].classList.contains("green") || boxes[centre+positions[d]].classList.contains("lgreen") || boxes[centre+positions[d]].classList.contains("brown") || boxes[centre+positions[d]].classList.contains("lbrown"))) {
+                    clearApple();
+                    score=score+1;
+                    scoreText.textContent = "Score: " + score;
+                    centre = 2500;
+                    lastDestroyed = currentApple;
+                    setGame(); 
+                    break;
+                } else if ((boxes[centre+positions[d]].classList.contains("red") || boxes[centre-positions[d]].classList.contains("lred") || boxes[centre-positions[d]].classList.contains("black") || boxes[centre-positions[d]].classList.contains("green") || boxes[centre-positions[d]].classList.contains("lgreen") || boxes[centre-positions[d]].classList.contains("brown") || boxes[centre-positions[d]].classList.contains("lbrown"))) {
                 clearApple();
                 score=score+1;
                 scoreText.textContent = "Score: " + score;
                 centre = 2500;
                 lastDestroyed = currentApple;
                 setGame(); 
+                break;
             }
             break;
+        }
     }
 
     moveApple()
@@ -255,4 +284,4 @@ function spaceStart(event) {
     }
 }
 
-document.addEventListener('keydown', spaceStart)
+document.addEventListener('keydown', spaceStart);
