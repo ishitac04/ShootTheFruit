@@ -58,6 +58,15 @@ body {
 .red {
     background-color: rgb(226, 3, 3);
 }
+.darkred {
+    background-color: rgb(117, 15, 15);
+}
+.pink {
+    background-color: rgb(185, 48, 167);
+}
+.darkpink {
+    background-color: rgb(128, 17, 128);
+}
 .green {
     background-color: rgb(15, 124, 15);
 }
@@ -69,4 +78,16 @@ body {
 }
 .fakeTarget {
     background-color: #f58c2a;
+}
+.sblack {
+    background-color: #000000;
+}
+.sred {
+    background-color: rgb(226, 3, 3);
+}
+.sgreen {
+    background-color: rgb(15, 124, 15);
+}
+.slred {
+    background-color: rgb(226, 116, 116);
 }
