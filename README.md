@@ -1,4 +1,5 @@
 # ShootTheFruit
+[![Athena Award Badge](https://img.shields.io/endpoint?url=https%3A%2F%2Faward.athena.hackclub.com%2Fapi%2Fbadge)](https://award.athena.hackclub.com?utm_source=readme)
 
 #What it is/does
 My project is called Shoot the Fruit, and it is a game where you can navigate using the arrow keys and shoot the fruit with limited bullets, and try to get a higher score. There are also different levels/ modes, allowing you to play with 2 players, or with different numbers of fruits :)
