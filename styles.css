@@ -75,9 +75,11 @@ body {
 }
 .target {
     background-color: #f58c2a;
+    position: relative; 
+    z-index: 9999;
 }
-.fakeTarget {
-    background-color: #f58c2a;
+.target2 {
+    background-color: #222a97;
 }
 .sblack {
     background-color: #000000;

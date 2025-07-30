@@ -1,54 +1,24 @@
-let count=0
-let goingUp = true;
-let minPosition = 200;
-let maxPosition = 22000 - 2600;
-let col=200;
-let centre = 10510;
-let score = 0;
-let stop=0;
-let currentApple=0;
-let lastDestroyed=0;
-let position = 0;
-let bullets = 10;
-let gameStarted = false;
-let boxes = [];
-const appleBoxes = [5, 204, 205, 206, 404, 405, 406, 407, 408, 409, 410, 603, 604, 605, 606, 607, 608, 609, 610, 611, 802, 803, 804, 805, 806, 807, 808, 809, 810, 811, 812, 1001, 1002, 1003, 1004, 1005, 1006, 1007, 1008, 1009, 1010, 1011, 1012, 1201, 1202, 1203, 1204, 1205, 1206, 1207, 1208, 1209, 1210, 1211, 1212, 1401, 1402, 1403, 1404, 1405, 1406, 1407, 1408, 1409, 1410, 1411, 1601, 1602, 1603, 1604, 1605, 1606, 1607, 1608, 1609, 1610, 1611, 1801, 1802, 1803, 1804, 1805, 1806, 1807, 1808, 1809, 1810, 1811, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2203, 2204, 2205, 802, 805, 806, 1001, 1201, 1401, 1411, 1601, 1611, 1801, 1811, 2002, 2010, 2203, 2204, 2205, 2206, 2209, 2404, 2405, 2407, 2408];
 
-function generateGrid() {
-    let i=0;
-    const board = document.getElementById('grid');
-    while (i<22000) {
-    i=i+1
-    const square = document.createElement('div')
-    board.appendChild(square)
+    gunshot.play();
+    for (d=0; d<13; d++) {
+        const positions = [398, 399, 400, 401, 402, 198, 199, 200, 201, 202, 1, 2, 0];
+        if ((boxes[centre2+positions[d]].classList.contains("red") || boxes[centre2+positions[d]].classList.contains("sblack") || boxes[centre2+positions[d]].classList.contains("sred") || boxes[centre2+positions[d]].classList.contains("slred") || boxes[centre2+positions[d]].classList.contains("sgreen") || boxes[centre2+positions[d]].classList.contains("lred") || boxes[centre2+positions[d]].classList.contains("black") || boxes[centre2+positions[d]].classList.contains("green") || boxes[centre2+positions[d]].classList.contains("lgreen") || boxes[centre2+positions[d]].classList.contains("brown") || boxes[centre2+positions[d]].classList.contains("lbrown"))) {
+            clearApple();
+            clearStrawberry();
+            score2=score2+1;
+            bulletsLeft.textContent = "Score: " + score2;
+            centre2 = 2500;
+            lastDestroyed = currentApple;
+            setGame();
+            break;
+        } else if ((boxes[centre2-positions[d]].classList.contains("red") || boxes[centre2-positions[d]].classList.contains("sblack") || boxes[centre2-positions[d]].classList.contains("sred") || boxes[centre2-positions[d]].classList.contains("slred") || boxes[centre2-positions[d]].classList.contains("sgreen") || boxes[centre2-positions[d]].classList.contains("lred") || boxes[centre2-positions[d]].classList.contains("black") || boxes[centre2-positions[d]].classList.contains("green") || boxes[centre2-positions[d]].classList.contains("lgreen") || boxes[centre2-positions[d]].classList.contains("brown") || boxes[centre2-positions[d]].classList.contains("lbrown"))) {
+        clearApple();
+        score2=score2+1;
+        bulletsLeft.textContent = "Score: " + score2;
+        centre2 = 2500;
+        lastDestroyed = currentApple;
+        setGame(); 
+        break;
     }
-    boxes = document.querySelectorAll('#grid div')
-    
+    break;
 }
-
-function generateStrawberry(i) {
-    const blacksquares=[7,8,206, 209, 405, 404, 403, 410, 411,412,613,602, 801, 803,804,805,810,811,812,814,1001,1006,1009,1014,1200,1215,1400,1415,1600,1615,1800,1815,2000,2015,2201,2401,2602,2802,3003,3204,3405,3606,3607,3608,3609,3410,3211,3012,2813,2613,2414,2214]
-    const greensquares=[806,807,808,809,207,208,406,407,408,409,603,604,605,606,607,608,609,610,611,612]
-    const redsquares=[802,813,1002,1003,1004,1005,1007,1008,1010,1011,1012,1013,1201,1202,1203,1204,1205,1206,1207,1208,1209,1210,1211,1212,1213,1214,1401,1402,1403,1404,1405,1406,1407,1408,1409,1410,1411,1412,1413,1414,1601,1602,1603,1604,1605,1606,1607,1608,1609,1610,1611,1612,1613,1614,1801,1802,1803,1804,1805,1806,1807,1808,1809,1810,1811,1812,1813,1814,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2202,2203,2204,2205,2206,2207,2208,2209,2210,2211,2212,2213,2402,2403,2404,2405,2406,2407,2408,2409,2410,2411,2412,2413,2603,2604,2605,2606,2607,2608,2609,2610,2611,2612,2803,2804,2805,2806,2807,2808,2809,2810,2811,2812,3004,3005,3006,3007,3008,3009,3010,3011,3205,3206,3207,3208,3209,3210,3406,3407,3408,3409
-    ];
-    for (i=0;i<blacksquares.length;i++) {
-        a=blacksquares[i]
-        boxes[a].classList.add("black")
-    }
-    for (i=0;i<greensquares.length;i++) {
-        a=greensquares[i]
-        boxes[a].classList.add("green")
-    }
-    for (i=0;i<redsquares.length;i++) {
-        a=redsquares[i]
-        if (i%4 == 0) {
-            boxes[a].classList.add("lred")
-        } else {
-            boxes[a].classList.add("red")
-        }
-        
-    }
-}
-
-generateGrid();
-generateStrawberry(10045);

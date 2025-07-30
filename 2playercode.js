@@ -9,6 +9,7 @@ let maxPosition = 22000 - 3800;
 let col=200;
 let centre = 10510;
 let score = 0;
+let score2=0;
 let stop=0;
 let appleInterval = setInterval(moveApple, 50);
 let currentApple=0;
@@ -24,6 +25,7 @@ let strawberryPosition = ApplePosition();
 const targetBoxes = [0, 200, 200, 1, 1, 2000, 1800, 1600, 1400, 1200, 6, 7, 8, 9, 10, 208, 408, 608, 607, 807, 806, 1006, 1005, 1205, 1204, 1404, 1403, 1603, 1602, 1601, 1599, 1598, 1597, 1397, 1396, 1196, 1195, 995, 994, 794, 793, 593, 592, 392, 192]
 currentStrawberry = 0;
 let strawberryGoingUp = true;
+let centre2 = 11010;
 
 function generateGrid() {
     let i=0;
@@ -239,6 +241,13 @@ function generateTarget(c) {
       }
 }
 
+function generateTarget2(c) {
+    for (let n = 0; n < targetBoxes.length; n++) {
+        boxes[c-targetBoxes[n]].classList.add("target2");
+        boxes[c+targetBoxes[n]].classList.add("target2");
+    }
+}
+
 function clearTarget() {
     for (let n = 0; n < targetBoxes.length; n++) {
         if (boxes[centre - targetBoxes[n]]) {
@@ -251,16 +260,20 @@ function clearTarget() {
     console.log("removed target");
 }
 
-function shootBullet() {
-    let startx = 17045 % col;
-    let starty = Math.floor(17045 / col);
-    let endx = centre % col;
-    let endy = Math.floor(centre / col)
-    boxes[17045].className = "brown";
+function clearTarget2() {
+    for (let n = 0; n < targetBoxes.length; n++) {
+        if (boxes[centre2 - targetBoxes[n]]) {
+            boxes[centre2 - targetBoxes[n]].classList.remove("target2");
+        }
+        if (boxes[centre2 + targetBoxes[n]]) {
+            boxes[centre2 + targetBoxes[n]].classList.remove("target2");
+        }
+    }
 }
 
 function keyPress(event) {
     clearTarget();
+    clearTarget2();
     switch (event.key) {
         case 'ArrowUp':
             centre = centre - 800;
@@ -276,13 +289,7 @@ function keyPress(event) {
             break;
         case 'Enter':
             gunshot.play();
-            bullets = bullets - 1;
-            bulletsLeft.textContent = "Bullets left: " + bullets;
-
-            if (bullets == 0) {
-                alert("Out of bullets! Your final score is " + score);
-                location.reload();
-            }
+            bulletsLeft.textContent = "Score (2) " + score2;
             for (d=0; d<13; d++) {
                 const positions = [398, 399, 400, 401, 402, 198, 199, 200, 201, 202, 1, 2, 0];
                 if ((boxes[centre+positions[d]].classList.contains("red") || boxes[centre+positions[d]].classList.contains("sblack") || boxes[centre+positions[d]].classList.contains("sred") || boxes[centre+positions[d]].classList.contains("slred") || boxes[centre+positions[d]].classList.contains("sgreen") || boxes[centre+positions[d]].classList.contains("lred") || boxes[centre+positions[d]].classList.contains("black") || boxes[centre+positions[d]].classList.contains("green") || boxes[centre+positions[d]].classList.contains("lgreen") || boxes[centre+positions[d]].classList.contains("brown") || boxes[centre+positions[d]].classList.contains("lbrown"))) {
@@ -305,6 +312,43 @@ function keyPress(event) {
             }
             break;
         }
+
+        case 'w':
+            centre2 = centre2 - 800;
+            break;
+        case 's':
+            centre2 = centre2 + 800;
+            break;
+        case 'a':
+            centre2 = centre2 - 4;
+            break;
+        case 'd':
+            centre2 = centre2 + 4;
+            break;
+        case ' ':
+            gunshot.play();
+    for (d=0; d<13; d++) {
+        const positions = [398, 399, 400, 401, 402, 198, 199, 200, 201, 202, 1, 2, 0];
+        if ((boxes[centre2+positions[d]].classList.contains("red") || boxes[centre2+positions[d]].classList.contains("sblack") || boxes[centre2+positions[d]].classList.contains("sred") || boxes[centre2+positions[d]].classList.contains("slred") || boxes[centre2+positions[d]].classList.contains("sgreen") || boxes[centre2+positions[d]].classList.contains("lred") || boxes[centre2+positions[d]].classList.contains("black") || boxes[centre2+positions[d]].classList.contains("green") || boxes[centre2+positions[d]].classList.contains("lgreen") || boxes[centre2+positions[d]].classList.contains("brown") || boxes[centre2+positions[d]].classList.contains("lbrown"))) {
+            clearApple();
+            clearStrawberry();
+            score2=score2+1;
+            bulletsLeft.textContent = "Score: " + score2;
+            centre2 = 2500;
+            lastDestroyed = currentApple;
+            setGame();
+            break;
+        } else if ((boxes[centre2-positions[d]].classList.contains("red") || boxes[centre2-positions[d]].classList.contains("sblack") || boxes[centre2-positions[d]].classList.contains("sred") || boxes[centre2-positions[d]].classList.contains("slred") || boxes[centre2-positions[d]].classList.contains("sgreen") || boxes[centre2-positions[d]].classList.contains("lred") || boxes[centre2-positions[d]].classList.contains("black") || boxes[centre2-positions[d]].classList.contains("green") || boxes[centre2-positions[d]].classList.contains("lgreen") || boxes[centre2-positions[d]].classList.contains("brown") || boxes[centre2-positions[d]].classList.contains("lbrown"))) {
+        clearApple();
+        score2=score2+1;
+        bulletsLeft.textContent = "Score: " + score2;
+        centre2 = 2500;
+        lastDestroyed = currentApple;
+        setGame(); 
+        break;
+    }
+    break;
+        }
     }
 
     moveApple()
@@ -313,6 +357,7 @@ function keyPress(event) {
         centre = Math.floor(boxes.length / 2);
     }
     generateTarget(centre);
+    generateTarget2(centre2);
 }
 
 function setGame() {
